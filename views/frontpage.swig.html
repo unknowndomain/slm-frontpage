@@ -22,6 +22,7 @@ document.querySelector("#persona-login").addEventListener("click", function() {
 }, false);
 
 navigator.id.watch({
+  loggedInUser: '{% if user %}{{ user }}{% else %}null{% endif %}',
   onlogin: function(assertion) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/persona/verify", true);
@@ -30,6 +31,7 @@ navigator.id.watch({
       var data = JSON.parse(this.responseText);
       if (data && data.status === "okay") {
         console.log("You have been logged in as: " + data.email);
+        window.location.reload(true);
       }
     }, false);
 
@@ -41,7 +43,7 @@ navigator.id.watch({
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/persona/logout", true);
     xhr.addEventListener("loadend", function(e) {
-      console.log("You have been logged out");
+      console.log("User has logged out.");
     });
     xhr.send();
   }
