@@ -1,0 +1,52 @@
+{% extends '../../../views/base.swig.html' %}
+{% block content %}
+<div class="well well-lg">
+    <h2>Ciao!</h2>
+    <button type="button" class="btn btn-primary btn-lg">Join the South London Makerspace</button>
+</div>
+{% endblock %}
+
+{% block navigation %}
+<div class="well well-lg">
+    <h2>Login</h2>
+    <p>Sign in or sign up with Mozilla's Persona.</p>
+    <img src="/static/img/persona_sign_in_black.png" id="persona-login" alt="Persona Sign-in" title="Persona Sign-in" />
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://login.persona.org/include.js"></script>
+<script>
+document.querySelector("#persona-login").addEventListener("click", function() {
+  navigator.id.request();
+}, false);
+
+navigator.id.watch({
+  onlogin: function(assertion) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/persona/verify", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.addEventListener("loadend", function(e) {
+      var data = JSON.parse(this.responseText);
+      if (data && data.status === "okay") {
+        console.log("You have been logged in as: " + data.email);
+      }
+    }, false);
+
+    xhr.send(JSON.stringify({
+      assertion: assertion
+    }));
+  },
+  onlogout: function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/persona/logout", true);
+    xhr.addEventListener("loadend", function(e) {
+      console.log("You have been logged out");
+    });
+    xhr.send();
+  }
+});
+
+
+</script>
+{% endblock %}
