@@ -5,9 +5,11 @@ module.exports = {
     "app": function membership (config, db, site) {
         var app = express();
         
-        app.set('views', __dirname + "/views")
+        app.set('views', __dirname + "/views");
         
-        app.get('/', function index (req, res){
+        site.use("/static", express.static(__dirname + "/" + config.static_dir));
+        
+        app.get('/', function index (req, res) {
             res.render("frontpage");
         });
         
