@@ -7,11 +7,19 @@
 {% endblock %}
 
 {% block navigation %}
-<div class="well well-lg">
-    <h2>Login</h2>
-    <p>Sign in or sign up with Mozilla's Persona.</p>
-    <img src="/static/img/persona_sign_in_black.png" id="persona-login" alt="Persona Sign-in" title="Persona Sign-in" />
-</div>
+    {% if not email %}
+    <div class="well well-lg">
+        <h2>Login</h2>
+        <p>Sign in or sign up with <a href="https://login.persona.org/about">Mozilla's Persona</a>.</p>
+        <img src="/static/img/persona_sign_in_black.png" id="persona-login" alt="Persona Sign-in" title="Persona Sign-in" />
+    </div>
+    {% else %}
+        <ul class="nav nav-pills nav-stacked">
+        {% for item in nav %}
+            <li><a href="{{ item.route }}">{{ item.name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif%}
 {% endblock %}
 
 {% block js %}
