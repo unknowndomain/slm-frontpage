@@ -2,8 +2,8 @@ var express = require('express');
 var _ = require("underscore");
 
 module.exports = {
-    "title": "Membership",
-    "name": "membership",
+    "title": "Frontpage",
+    "name": "frontpage",
     "app": function membership (config, db, site) {
         var app = express();
         _.extend(app.locals, site.locals);
