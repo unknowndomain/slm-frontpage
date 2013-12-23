@@ -30,7 +30,7 @@ document.querySelector("#persona-login").addEventListener("click", function() {
 }, false);
 
 navigator.id.watch({
-  loggedInUser: '{% if user %}{{ user }}{% else %}null{% endif %}',
+  loggedInUser: {% if email %}'{{ email }}'{% else %}null{% endif %},
   onlogin: function(assertion) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/persona/verify", true);
