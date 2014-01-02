@@ -21,9 +21,12 @@
 {% block js %}
 <script src="https://login.persona.org/include.js"></script>
 <script>
-document.querySelector("#persona-login").addEventListener("click", function() {
-  navigator.id.request();
-}, false);
+var login_button = document.querySelector("#persona-login");
+if (login_button) {
+  login_button.addEventListener("click", function() {
+        navigator.id.request();
+    }, false);
+}
 
 navigator.id.watch({
   loggedInUser: {% if email %}'{{ email }}'{% else %}null{% endif %},
@@ -48,6 +51,7 @@ navigator.id.watch({
     xhr.open("POST", "/auth/logout", true);
     xhr.addEventListener("loadend", function(e) {
       console.log("User has logged out.");
+      window.location.reload(true);
     });
     xhr.send();
   }
