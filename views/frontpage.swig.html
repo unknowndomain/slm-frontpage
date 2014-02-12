@@ -2,7 +2,10 @@
 {% block content %}
 <div class="well well-lg">
     <h2>Hello!</h2>
-    <a href="#" class="btn btn-primary btn-lg">Join the South London Makerspace »</a>
+    {% if not user %}
+    <p>To join the South London Makerspace please click on the link below and provide the e-mail address you would like to associate with us.</p>
+    <a href="#" class="btn btn-primary btn-lg persona-login" onclick="javascript:navigator.id.request()">Join »</a>
+    {% endif %}
 </div>
 {% endblock %}
 
@@ -11,7 +14,9 @@
     <div class="well well-lg">
         <h2>Login</h2>
         <p>Sign in or sign up with <a href="https://login.persona.org/about">Mozilla's Persona</a>.</p>
-        <img src="/static/img/persona_sign_in_black.png" id="persona-login" alt="Persona Sign-in" title="Persona Sign-in" />
+        <a href="#" onclick="javascript:navigator.id.request()">
+            <img src="/static/img/persona_sign_in_black.png" class="persona-login" alt="Persona Sign-in" title="Persona Sign-in" />
+        </a>
     </div>
     {% else %}
         {% include "../../../views/nav.sub.swig.html" %}
@@ -21,12 +26,6 @@
 {% block js %}
 <script src="https://login.persona.org/include.js"></script>
 <script>
-var login_button = document.querySelector("#persona-login");
-if (login_button) {
-  login_button.addEventListener("click", function() {
-        navigator.id.request();
-    }, false);
-}
 
 navigator.id.watch({
   loggedInUser: {% if email %}'{{ email }}'{% else %}null{% endif %},

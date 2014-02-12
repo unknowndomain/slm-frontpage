@@ -13,7 +13,13 @@ module.exports = {
         site.use("/static", express.static(__dirname + "/" + config.static_dir));
         
         app.get('/', function index (req, res) {
-            res.render("frontpage");
+            var user = res.locals.user;
+            if (req.session.email && ((!user) || (!user.provided_details()))) {
+                res.redirect("/membership");
+            }
+            else {
+                res.render("frontpage");
+            }
         });
         
         return app;
