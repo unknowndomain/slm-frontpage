@@ -14,7 +14,7 @@ module.exports = {
         
         app.get('/', function index (req, res) {
             var user = res.locals.user;
-            if ((user) && (!user.provided_details())) {
+            if (req.session.email && ((!user) || (!user.provided_details()))) {
                 res.redirect("/membership");
             }
             else {
