@@ -15,6 +15,7 @@ module.exports = {
         app.get('/', function index (req, res) {
             var user = res.locals.user;
             if (req.session.email && ((!user) || (!user.provided_details()))) {
+                res.locals.flash("warning", "Details Required.", "Please enter your personal details to continue.");
                 res.redirect("/membership");
             }
             else {
