@@ -2,7 +2,7 @@ var express = require('express');
 var _ = require("underscore");
 
 module.exports = {
-    "title": "Frontpage",
+    "title": "Getting Started",
     "name": "frontpage",
     "app": function membership (config, db, site) {
         var app = express();

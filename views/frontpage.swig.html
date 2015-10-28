@@ -1,10 +1,16 @@
 {% extends '../../../views/base.swig.html' %}
 {% block content %}
 <div class="well well-lg">
-    <h2>Hello!</h2>
     {% if not user %}
-    <p>To join the South London Makerspace please click on the link below and provide the e-mail address you would like to associate with us.</p>
-    <a href="#" class="btn btn-primary btn-lg persona-login" onclick="javascript:navigator.id.request()">Join »</a>
+      <h2>Join</h2>
+      <p>To join the South London Makerspace please click on the link below and provide the e-mail address you would like to associate with us.</p>
+      <a href="#" class="btn btn-primary btn-lg persona-login" onclick="javascript:navigator.id.request()">Join »</a>
+    {% else %}
+      <h2>Getting Started</h2>
+      <p>Thanks for becoming a member of South London Makerspace.</p>
+      <p>The best way to get started in the space it to attend one of our weekly events and introduce yourself. You can find a <a href="https://calendar.google.com/calendar/embed?src=6hnjp743rq7omi2qfr3fa873ug@group.calendar.google.com&ctz=Europe/London" target="_blank">list of events here</a>.</p>
+      <p>You can also join in the ongoing conversation on our forum <a href="http://discourse.southlondonmakerspace.org" taget="_blank">Discourse</a>, and chat room <a href="/account">Slack</a>.</p>
+      <p>To get access to the space come to one of our events such as open eveing on Wednesdays at 19:30 where we can issue you with a red key fob.</p>
     {% endif %}
 </div>
 {% endblock %}
